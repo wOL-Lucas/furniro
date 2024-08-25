@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsBooleanString, IsNumber, IsString } from "class-validator";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Size } from "../dto/size.enum";
 import { Product } from "./product.entity";
@@ -21,7 +21,7 @@ export class Sku {
   @IsString()
   color: string;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   @IsNumber()
   price: number;
 
@@ -32,6 +32,18 @@ export class Sku {
   @Column()
   @IsString()
   stock: number;
+
+  @Column()
+  @IsString()
+  image: string;
+
+  @Column({ nullable: true, type: 'integer' })
+  @IsNumber()
+  discountPercentage: number;
+
+  @Column({ nullable: true, type: 'bool' })
+  @IsBooleanString()
+  isNewProduct: boolean;
 
   @Exclude({ toPlainOnly: true })
   @ManyToOne(() => Product, product => product.skus)

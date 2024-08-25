@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Product } from './entities/product.entity';
+import { Sku } from './entities/sku.entity';
+import { UpdateSkuDto } from './dto/update-sku.dto';
 
 @Injectable()
 export class ProductsService {
+
+  constructor(
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>,
+
+    @InjectRepository(Sku)
+    private skuRepository: Repository<Sku>
+  ){}
+
   create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+    return this.productRepository.save(createProductDto);
   }
 
   findAll() {
-    return `This action returns all products`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+    return this.productRepository.find();
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    return this.productRepository.update(id, updateProductDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} product`;
+    return this.productRepository.delete(id);
+  }
+  
+  getSkuByCode(code: string) {
+    return this.skuRepository.findOneBy({ code });
+  }
+
+  updateSku(code: string, updateSkuDto: UpdateSkuDto) {
+    return this.skuRepository.update(code, updateSkuDto);
   }
 }
