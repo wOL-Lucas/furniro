@@ -1,4 +1,5 @@
-import { Size } from "./size.enum";
+import { Category } from "../enum/category.enum";
+import { Size } from "../enum/size.enum";
 
 export class CreateSkuDto {
   code: string;
@@ -10,5 +11,6 @@ export class CreateSkuDto {
   image: string;
   discountPercentage: number;
   isNewProduct: boolean;
+  category: Category;
 }
 

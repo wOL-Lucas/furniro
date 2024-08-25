@@ -1,6 +1,7 @@
 import { IsString } from 'class-validator';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Sku } from './sku.entity';
+import { Category } from '../enum/category.enum';
 
 @Entity()
 export class Product {
@@ -13,4 +14,8 @@ export class Product {
   @Column()
   @IsString()
   name: string;
+
+  @Column()
+  @IsString()
+  category: Category;
 }

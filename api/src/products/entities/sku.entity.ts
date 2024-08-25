@@ -1,6 +1,6 @@
 import { IsBooleanString, IsNumber, IsString } from "class-validator";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Size } from "../dto/size.enum";
+import { Size } from "../enum/size.enum";
 import { Product } from "./product.entity";
 import { Exclude } from "class-transformer";
 
