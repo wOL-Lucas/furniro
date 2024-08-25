@@ -26,7 +26,8 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.product (
     id integer NOT NULL,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    category character varying NOT NULL
 );
 
 
@@ -63,13 +64,13 @@ CREATE TABLE public.sku (
     code character varying NOT NULL,
     size character varying NOT NULL,
     color character varying NOT NULL,
+    price numeric(10,2) NOT NULL,
     description character varying NOT NULL,
-    "productId" integer,
     stock integer NOT NULL,
     image character varying NOT NULL,
-    price numeric(10,2) NOT NULL,
     "discountPercentage" integer,
-    "isNewProduct" boolean
+    "isNewProduct" boolean,
+    "productId" integer
 );
 
 
@@ -250,21 +251,21 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: root
 --
 
-COPY public.product (id, name) FROM stdin;
-2	Asgaard
-3	Syltherine
-4	Casaliving Wood
-6	Respira
-7	Lolito
-8	Leviosa
-9	Inner Peace
-10	Samantha
-11	Griffo
-12	Muggo
-13	Pingky
-14	Sidney
-15	Wild Maxi
-16	Peach Sofa
+COPY public.product (id, name, category) FROM stdin;
+2	Asgaard	sofas
+4	Casaliving Wood	sofas
+12	Muggo	sofas
+13	Pingky	sofas
+14	Sidney	sofas
+15	Wild Maxi	sofas
+16	Peach Sofa	sofas
+11	Griffo	luminárias
+3	Syltherine	cadeiras
+8	Leviosa	cadeiras
+10	Samantha	cadeiras
+6	Respira	mesas
+7	Lolito	sofas
+9	Inner Peace	quadros
 \.
 
 
@@ -272,23 +273,23 @@ COPY public.product (id, name) FROM stdin;
 -- Data for Name: sku; Type: TABLE DATA; Schema: public; Owner: root
 --
 
-COPY public.sku (id, code, size, color, description, "productId", stock, image, price, "discountPercentage", "isNewProduct") FROM stdin;
-1	SS001	L	Blue	Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well balanced audio which boasts a clear midrange and extended highs for a sound	2	1000	https://furniro-s3.s3.us-east-2.amazonaws.com/asgaard.png	250000.00	\N	\N
-2	SS002	L	Black	Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well balanced audio which boasts a clear midrange and extended highs for a sound	2	1250	https://furniro-s3.s3.us-east-2.amazonaws.com/asgaard.png	250000.00	\N	\N
-3	SS003	L	Blue	Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well balanced audio which boasts a clear midrange and extended highs for a sound	2	1000	https://furniro-s3.s3.us-east-2.amazonaws.com/asgaard.png	250000.00	\N	\N
-5	CL001	S	Grey	Cool sofa	4	100	https://furniro-s3.s3.us-east-2.amazonaws.com/casaliving.png	270000.00	\N	\N
-8	LV001	L	White	Stylish cafe chair	8	100	https://furniro-s3.s3.us-east-2.amazonaws.com/Leviosa.png	2500000.00	\N	\N
-4	ST001	L	white	Stylish cafe chair	3	150	https://furniro-s3.s3.us-east-2.amazonaws.com/Syltherine.png	2500000.00	30	\N
-7	LT001	L	White	Outdoor bar table and stool	7	100	https://furniro-s3.s3.us-east-2.amazonaws.com/Lolito.png	7000000.00	50	\N
-6	RS001	S	Brown	Outdoor bar table and stool	6	100	https://furniro-s3.s3.us-east-2.amazonaws.com/respira.png	500000.00	\N	t
-9	IP001	S	White	Posters collection	9	25	https://furniro-s3.s3.us-east-2.amazonaws.com/inner-peace.png	500000.00	\N	t
-10	SM001	M	Brown	Vintage wood chair	10	25	https://furniro-s3.s3.us-east-2.amazonaws.com/samantha.png	2500000.00	\N	t
-11	GF001	S	White	Modern lampshade	11	10	https://furniro-s3.s3.us-east-2.amazonaws.com/griffo.png	200000.00	\N	f
-12	MG001	S	Gray	Modern sofa	12	10	https://furniro-s3.s3.us-east-2.amazonaws.com/muggo.png	2250000.00	\N	t
-13	PG001	L	Gray	Modern stylish sofa	13	10	https://furniro-s3.s3.us-east-2.amazonaws.com/pingky.png	2230000.00	\N	t
-14	SD001	L	Brown	Vintage leather sofa	14	10	https://furniro-s3.s3.us-east-2.amazonaws.com/sidney.png	5000000.00	\N	f
-16	PS001	L	Yellow	Modern, peach shapped sofa	16	5	https://furniro-s3.s3.us-east-2.amazonaws.com/peachsofa.png	25000000.00	\N	f
-15	WM001	L	Gray	Modern stylish sofa	15	10	https://furniro-s3.s3.us-east-2.amazonaws.com/wildmaxi.png	15000000.00	\N	t
+COPY public.sku (id, code, size, color, price, description, stock, image, "discountPercentage", "isNewProduct", "productId") FROM stdin;
+1	SS001	L	Blue	250000.00	Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well balanced audio which boasts a clear midrange and extended highs for a sound	1000	https://furniro-s3.s3.us-east-2.amazonaws.com/asgaard.png	\N	\N	2
+2	SS002	L	Black	250000.00	Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well balanced audio which boasts a clear midrange and extended highs for a sound	1250	https://furniro-s3.s3.us-east-2.amazonaws.com/asgaard.png	\N	\N	2
+3	SS003	L	Blue	250000.00	Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well balanced audio which boasts a clear midrange and extended highs for a sound	1000	https://furniro-s3.s3.us-east-2.amazonaws.com/asgaard.png	\N	\N	2
+5	CL001	S	Grey	270000.00	Cool sofa	100	https://furniro-s3.s3.us-east-2.amazonaws.com/casaliving.png	\N	\N	4
+8	LV001	L	White	2500000.00	Stylish cafe chair	100	https://furniro-s3.s3.us-east-2.amazonaws.com/Leviosa.png	\N	\N	8
+4	ST001	L	white	2500000.00	Stylish cafe chair	150	https://furniro-s3.s3.us-east-2.amazonaws.com/Syltherine.png	30	\N	3
+7	LT001	L	White	7000000.00	Outdoor bar table and stool	100	https://furniro-s3.s3.us-east-2.amazonaws.com/Lolito.png	50	\N	7
+6	RS001	S	Brown	500000.00	Outdoor bar table and stool	100	https://furniro-s3.s3.us-east-2.amazonaws.com/respira.png	\N	t	6
+9	IP001	S	White	500000.00	Posters collection	25	https://furniro-s3.s3.us-east-2.amazonaws.com/inner-peace.png	\N	t	9
+10	SM001	M	Brown	2500000.00	Vintage wood chair	25	https://furniro-s3.s3.us-east-2.amazonaws.com/samantha.png	\N	t	10
+11	GF001	S	White	200000.00	Modern lampshade	10	https://furniro-s3.s3.us-east-2.amazonaws.com/griffo.png	\N	f	11
+12	MG001	S	Gray	2250000.00	Modern sofa	10	https://furniro-s3.s3.us-east-2.amazonaws.com/muggo.png	\N	t	12
+13	PG001	L	Gray	2230000.00	Modern stylish sofa	10	https://furniro-s3.s3.us-east-2.amazonaws.com/pingky.png	\N	t	13
+14	SD001	L	Brown	5000000.00	Vintage leather sofa	10	https://furniro-s3.s3.us-east-2.amazonaws.com/sidney.png	\N	f	14
+16	PS001	L	Yellow	25000000.00	Modern, peach shapped sofa	5	https://furniro-s3.s3.us-east-2.amazonaws.com/peachsofa.png	\N	f	16
+15	WM001	L	Gray	15000000.00	Modern stylish sofa	10	https://furniro-s3.s3.us-east-2.amazonaws.com/wildmaxi.png	\N	t	15
 \.
 
 
