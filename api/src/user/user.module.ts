@@ -15,6 +15,6 @@ import { CepModule } from 'src/cep-api/cep-api.module';
   imports: [TypeOrmModule.forFeature([User, UserAddress, UserDetails]), CepModule],
   controllers: [UserController, UserAddressController, UserDetailsController],
   providers: [UserService, UserDetailsService, UserAddressService],
-  exports: [UserService, UserDetailsService, UserAddressService]
+  exports: [TypeOrmModule, UserService, UserDetailsService, UserAddressService]
 })
 export class UserModule {}

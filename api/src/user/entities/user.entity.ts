@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { UserDetails } from './details.entity';
-import { UserAddress } from './address.entity'
+import { UserAddress } from './address.entity';
+import { Cart } from 'src/cart/entities/cart.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity({
@@ -24,4 +25,8 @@ export class User {
   @OneToOne(() => UserAddress, address => address.user, { cascade: true })
   @JoinColumn()
   address: UserAddress;
+
+  @OneToMany(() => Cart, cart => cart.owner, { cascade: false })
+  @Exclude({ toPlainOnly: true })
+  carts: Cart[];
 }
