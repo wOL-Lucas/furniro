@@ -30,7 +30,7 @@ export class UserAddressController {
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Get Address' })
   @ApiSecurity('jwt')
-  @ApiResponse({ status: 200, description: 'Address found', type: CreateAddressDto})
+  @ApiResponse({ status: 200, description: 'Address found', type: CreateAddressDto })
   @ApiResponse({ status: 404, description: 'Address not found'})
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   getAddress(@User() user: SignedUser) {  
@@ -42,8 +42,8 @@ export class UserAddressController {
   @UsePipes(ValidationPipe)
   @ApiOperation({ summary: 'Update Address' })
   @ApiSecurity('jwt')
-  @ApiBody({ type: UpdateUserAddress })
-  @ApiResponse({ status: 200, description: 'Address updated' })
+  @ApiBody({ type: CreateAddressDto })
+  @ApiResponse({ status: 200, description: 'Address updated', type: CreateAddressDto })
   @ApiResponse({ status: 404, description: 'Address not found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   updateAddress(@User() user: SignedUser, @Body() updateAddressDto: UpdateUserAddress) {

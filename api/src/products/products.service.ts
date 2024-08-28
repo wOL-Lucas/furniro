@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -73,7 +73,10 @@ export class ProductsService {
   }
   
   getSkuByCode(code: string) {
-    return this.skuRepository.findOneBy({ code });
+    const sku = this.skuRepository.findOneBy({ code });
+    if (!sku) throw new NotFoundException({ message: 'SKU not found' })
+    
+    return sku;
   }
 
   updateSku(code: string, updateSkuDto: UpdateSkuDto) {

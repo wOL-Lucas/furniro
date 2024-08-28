@@ -27,6 +27,11 @@ export class UserService {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
+    const user = this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
     return this.userRepository.update(id, updateUserDto);
   }
 
