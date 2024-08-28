@@ -18,3 +18,11 @@ Se os serviços subiram corretamente, você pode começar a testar a api.
 - Na aba Environments, importe o ambiente do arquivo <b>_collections/furniro-api.postman_environment.json_</b>
 
 #### Se você optou por um destes clientes http, é só fazer as requisições e testar a aplicação.
+
+## Swagger
+### A documentação dos endpoints da API também está disponível em: 
+```
+/api/docs/
+```
+
+----------
