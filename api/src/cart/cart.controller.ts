@@ -30,9 +30,8 @@ export class CartController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  //@UsePipes(ValidationPipe)
+  @UsePipes(ValidationPipe)
   async createCart(@Body() dto: CreateCartDto, @User() user: SignedUser) {
-    return dto;
     return await this.cartService.createCart(user.id, dto);
   }
 }

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, CreateDateColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { User } from 'src/user/entities/user.entity';
 import { CartItem } from './cart-item.entity';
@@ -16,4 +16,7 @@ export class Cart {
 
   @OneToMany(() => CartItem, cartItem => cartItem.cart, { cascade: true })
   products: CartItem[];
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
 }
