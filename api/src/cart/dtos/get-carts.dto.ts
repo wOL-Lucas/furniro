@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class AuthPayloadDto {
+export class GetCartsDto {
   @ApiProperty()
-  username: string;
+  id: number;
 
   @ApiProperty()
-  password: string;
+  createdAt: Date;
 }

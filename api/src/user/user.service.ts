@@ -22,14 +22,6 @@ export class UserService {
     return this.userRepository.save(createUserDto);
   }
 
-  async findOne(id: number) {
-    const { password, ...result } = await this.userRepository.findOne({
-      where: { id },
-      relations: ['address', 'details']
-    });
-    return result;
-  }
-
   findOneByEmail(email: string) {
     return this.userRepository.findOneBy({ email });
   }
