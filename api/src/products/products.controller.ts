@@ -17,9 +17,10 @@ export class ProductsController {
 
   @Get()
   async findAll(@Query() query: GetProductsQueryDto) {
+    query.showPerPage = query.showPerPage || 16;
     const products = await this.productsService.findAll(query);
     const totalItems = await this.productsService.count(query);
-    const itemsPerPage = query.showPerPage || 10;
+    const itemsPerPage = query.showPerPage;
     const currentPage = query.offset ?? 1;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
