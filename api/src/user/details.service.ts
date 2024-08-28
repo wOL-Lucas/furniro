@@ -17,19 +17,16 @@ export class UserDetailsService {
   ){}
 
 
-  async create(userId: number, userDetails: CreateUserDetailsDto) {
+  async create(userId: number, userDetailsDto: CreateUserDetailsDto) {
     const user = await this.userRepository.findOneBy({ id: userId });
     if (!user) {
       throw new BadRequestException('User not found');
     }
 
-    const newUserDetails = this.userDetailsRepository.create(userDetails);
+    const newUserDetails = this.userDetailsRepository.create(userDetailsDto);
     newUserDetails.user = user;
 
-    user.details = newUserDetails;
-    await this.userRepository.save(user);
-
-    return this.userDetailsRepository.save(newUserDetails);
+    return await this.userDetailsRepository.save(newUserDetails);
   }
 
   async findAll(userId: number) {

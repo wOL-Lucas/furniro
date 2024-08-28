@@ -1,8 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 import { IsOptional, IsString } from 'class-validator';
-import { Exclude } from 'class-transformer';
-
+import { Exclude, Transform } from 'class-transformer';
 
 @Entity()
 export class UserDetails {
@@ -12,7 +11,7 @@ export class UserDetails {
 
   @OneToOne(() => User, user => user.details)
   @JoinColumn({ name: 'userId' })
-  @Exclude({ toPlainOnly: true })
+  @Transform(({ value }) => value ? { id: value.id, email: value.email } : null, { toPlainOnly: true })
   user: User;
 
   @Column()
@@ -28,5 +27,3 @@ export class UserDetails {
   @IsString()
   companyName: string;
 }
-
-

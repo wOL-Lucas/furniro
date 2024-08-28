@@ -20,7 +20,6 @@ export class UserAddressService {
 
   async create(userId: number, createAddressDto: CreateAddressDto) {
     const user = await this.userRepository.findOneBy({ id: userId });
-    console.log(user);
     if (!user) {
       throw new BadRequestException('User not found');
     }
@@ -38,9 +37,12 @@ export class UserAddressService {
       user,
     });
 
+    await this.userAddressRepository.save(address);
+
     user.address = address;
     await this.userRepository.save(user);
-    return this.userAddressRepository.save(address);
+
+    return await this.userAddressRepository.findOne({ where: { user: { id: userId } } });
   }
 
   async getAddress(userId: number){

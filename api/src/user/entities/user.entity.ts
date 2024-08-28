@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany
 import { UserDetails } from './details.entity';
 import { UserAddress } from './address.entity';
 import { Cart } from 'src/cart/entities/cart.entity';
-import { Exclude } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
 
 @Entity({
   name: 'users'
@@ -18,11 +18,12 @@ export class User {
   @Column()
   password: string;
 
-  @OneToOne(() => UserDetails, details => details.user, { cascade: true })
+  @OneToOne(() => UserDetails, details => details.user, { cascade: false })
   @JoinColumn()
+  @Exclude({ toPlainOnly: true })
   details: UserDetails;
 
-  @OneToOne(() => UserAddress, address => address.user, { cascade: true })
+  @OneToOne(() => UserAddress, address => address.user, { cascade: false })
   @JoinColumn()
   address: UserAddress;
 
