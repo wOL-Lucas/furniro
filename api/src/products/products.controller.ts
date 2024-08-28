@@ -5,12 +5,15 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ParameterValidationPipe } from 'src/user/pipes/parameter-validation.pipe';
 import { GetProductsQueryDto } from './dto/products-query.dto';
+import { UpdateSkuDto } from './dto/update-sku.dto';
 
 @Controller('/api/v1/products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
+  @UsePipes(ValidationPipe)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
   }
@@ -37,18 +40,25 @@ export class ProductsController {
   @Patch(':id')
   @UsePipes(ValidationPipe)
   @UseGuards(JwtAuthGuard)
-  update(@Param('id', ParameterValidationPipe) id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(+id, updateProductDto);
+  update(@Param('id', ParameterValidationPipe) id: number, @Body() updateProductDto: UpdateProductDto) {
+    return this.productsService.update(id, updateProductDto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id', ParameterValidationPipe) id: string) {
-    return this.productsService.remove(+id);
+  remove(@Param('id', ParameterValidationPipe) id: number) {
+    return this.productsService.remove(id);
   }
 
   @Get('/sku/:code')
   getSkuByCode(@Param('code') code: string) {
     return this.productsService.getSkuByCode(code);
+  }
+
+  @Patch('/sku/:code')
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(ValidationPipe)
+  updateSkyByCode(@Param('code') code: string, @Body() updateProductDto: UpdateSkuDto) {
+    return this.productsService.updateSku(code, updateProductDto);
   }
 }

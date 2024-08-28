@@ -20,6 +20,7 @@ export class ProductsService {
   ){}
 
   create(createProductDto: CreateProductDto) {
+    console.log(createProductDto)
     return this.productRepository.save(createProductDto);
   }
 
@@ -76,6 +77,6 @@ export class ProductsService {
   }
 
   updateSku(code: string, updateSkuDto: UpdateSkuDto) {
-    return this.skuRepository.update(code, updateSkuDto);
+    return this.skuRepository.update({ code: code }, updateSkuDto);
   }
 }
