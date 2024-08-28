@@ -4,6 +4,7 @@ import { CreateAddressDto } from './dto/create-address.dto';
 import { User } from 'src/auth/Decorators/user.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { SignedUser } from 'src/auth/dto/signedUser.dto';
+import { UpdateUserAddress } from './dto/update-address.dto';
 
 @Controller('api/v1/users/address')
 export class UserAddressController {
@@ -25,9 +26,8 @@ export class UserAddressController {
 
   @Patch()
   @UseGuards(JwtAuthGuard)
-  updateAddress(@User() user: SignedUser, @Body() createAddressDto: CreateAddressDto) {
-    this.userAddressService.deleteAddress(user.id);
-    return this.userAddressService.updateAddress(user.id, createAddressDto);
+  updateAddress(@User() user: SignedUser, @Body() updateAddressDto: UpdateUserAddress) {
+    return this.userAddressService.updateAddress(user.id, updateAddressDto);
   }
 
   @Delete()

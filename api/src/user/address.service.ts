@@ -6,6 +6,7 @@ import { User } from 'src/user/entities/user.entity';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { CepService } from 'src/cep-api/cep-api.service';
 import { lastValueFrom } from 'rxjs';
+import { UpdateUserAddress } from './dto/update-address.dto';
 
 @Injectable()
 export class UserAddressService {
@@ -49,8 +50,8 @@ export class UserAddressService {
     return this.userAddressRepository.findOne({ where: { user: { id: userId } } });
   }
 
-  async updateAddress(userId: number, createAddressDto: CreateAddressDto){
-    return await this.create(userId, createAddressDto);
+  async updateAddress(userId: number, updateAddressDto: UpdateUserAddress){
+    return await this.userAddressRepository.update({ user: { id: userId } }, updateAddressDto);
   }
   
   async deleteAddress(userId: number){

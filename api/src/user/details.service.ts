@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { UserDetails } from './entities/details.entity';
 import { CreateUserDetailsDto } from './dto/create-details.dto';
 import { User } from 'src/user/entities/user.entity';
+import { UpdateUserDetailsDto } from './dto/update-details.dto';
 
 @Injectable()
 export class UserDetailsService {
@@ -33,9 +34,8 @@ export class UserDetailsService {
     return this.userDetailsRepository.find({ where: { user: { id: userId } } });
   }
 
-  async update(userId: number, userDetails: CreateUserDetailsDto) {
-    this.remove(userId);
-    return this.create(userId, userDetails);
+  async update(userId: number, userDetails: UpdateUserDetailsDto) {
+    return this.userDetailsRepository.update({ user: { id: userId } }, userDetails);
   }
 
   async remove(userId: number) {

@@ -4,6 +4,7 @@ import { UserDetailsService } from './details.service';
 import { User } from 'src/auth/Decorators/user.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { SignedUser } from 'src/auth/dto/signedUser.dto';
+import { UpdateUserDetailsDto } from './dto/update-details.dto';
 
 @Controller('api/v1/users/details/')
 export class UserDetailsController {
@@ -26,8 +27,8 @@ export class UserDetailsController {
   @Patch()
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
-  update(@User() user:SignedUser, @Body() createUserDetailsDto: CreateUserDetailsDto) {
-    return this.userDetailsService.update(user.id, createUserDetailsDto);
+  update(@User() user:SignedUser, @Body() updateUserDetailsDto: UpdateUserDetailsDto) {
+    return this.userDetailsService.update(user.id, updateUserDetailsDto);
   }
 
   @Delete()
